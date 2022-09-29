@@ -1,0 +1,145 @@
+.header {
+   background-color: var(--color-light-x);
+   width: 100%;
+   position: fixed;
+   left: 0;
+   top: 0;
+   display: flex;
+   align-items: center;
+   // justify-content: space-around;
+   box-shadow: var(--bs-sm);
+   z-index: 2;
+
+   .title-box {
+      // margin: 1rem;
+      /* text-align: center; */
+      position: relative;
+
+      .title {
+         margin: 0 2rem;
+         display: flex;
+         color: var(--primary-color-dark);;
+         cursor: pointer;
+         // text-align: center;
+         // flex-direction: column;
+
+         &__icon {
+            fill: currentColor;
+         }
+
+         &--primary {
+            font-size: 2rem;
+         }
+
+         &--sub {
+            color: var(--color-dark-3);
+            font-size: 2rem;
+            margin-top: 3rem;
+            letter-spacing: 0.6rem;
+         }
+
+         &:hover {
+            color: var(--primary-color-dark);
+         }
+      }
+   }
+
+   .top-nav {
+      
+      &__menu {
+         display: flex;
+         list-style: none;
+         font-size: 1.6rem;
+         color: var(--color-dark-1);
+      }
+
+      &__item {
+         margin: .5rem 1.5rem;
+         border-radius: 4rem;
+         transition: color .4s;
+
+         &:hover {
+            color: var(--primary-color-dark);
+         }
+      }
+   }
+
+   .search {
+      flex: 1;
+      border-radius: 0.3rem;
+      display: flex;
+      background-color: var(--color-light-2);
+      margin: 0 1rem;
+      margin-left: auto;
+      padding: 0 1rem;
+      max-width: 80rem;
+
+      & > input:focus {
+         outline: none;
+      }
+
+      &__input {
+         background-color: inherit;
+         color: inherit;
+         font-size: inherit;
+         font-family: inherit;
+         width: 100%;
+         padding: .5rem;
+         border: none;
+         font-size: 1.7rem;
+      }
+
+      &__button {
+         background-color: inherit;
+         border: none;
+         cursor: pointer;
+      }
+
+      &__icon {
+         width: 2rem;
+         height: 2rem;
+         fill: var(--color-dark-1);
+         transition: all 0.2s;
+
+         &:hover {
+            fill: var(--primary-color);
+         }
+      }
+   }
+
+   .user-auth {
+      top: 0;
+      right: 0;
+      color: inherit;
+
+      &__button {
+         background: none;
+         border: none;
+         cursor: pointer;
+         transition: all 0.5s;
+         padding: .5rem 2rem;
+         margin: 0.5rem;
+         // border-radius: 4rem;
+         border: 0.2rem solid var(--primary-color);
+         color: inherit;
+         font-size: 1.4rem;
+
+         &:hover {
+            background-color: var(--primary-color);
+         }
+      }
+   }
+}
+
+@media screen and (max-width: 960px) {
+   .header {
+
+      .top-nav {
+         display: none;
+      }
+
+      .user-auth {
+         margin-left: auto;
+      }
+   }
+}
