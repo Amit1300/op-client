@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import store from "../redux/store";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
