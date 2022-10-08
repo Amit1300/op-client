@@ -37,9 +37,15 @@ const IssueForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-     const isIssueCreated = dispatch(addIssue(credentials.title, credentials.content));
-     console.log(isIssueCreated);
-     setIssueCreated(true);
+    const isIssueCreated = dispatch(
+      addIssue(credentials.title, credentials.content)
+    );
+    console.log(isIssueCreated);
+    setIssueCreated(true);
+    setTimeout(() => {
+      handleClearField();
+      showNotification();
+    }, 3000);
   };
   if (isIssueCreated) {
     return <Navigate to="/" />;
