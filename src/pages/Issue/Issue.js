@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "../../utilities/authContext";
-import axios from "axios";
 import Icon from "../../components/Icons";
-import store from "../../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { submitOpinion } from "../../store/issues/actions";
 
 const Issue = ({ hash, issue }) => {
-  const { isAuth } = useContext(AuthContext);
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const dispatch = useDispatch();
   const [responses, setResponses] = useState({
     userResponse: "",
     likes: 0,
@@ -14,7 +14,6 @@ const Issue = ({ hash, issue }) => {
   });
 
   useEffect(() => {
-    // console.log("USER RESPONSE", store.getState());
     if (isAuth) {
       if (issue && issue.opinions && issue.opinions.length > 0) {
         const userId = JSON.parse(localStorage.getItem("userData"))._id;
@@ -52,70 +51,7 @@ const Issue = ({ hash, issue }) => {
   //handle response
   const handleResponse = (response) => {
     // ..do something
-    const opinion = {
-      userId: JSON.parse(localStorage.getItem("userData"))._id,
-      opinion: response,
-    };
-    const formData = new FormData();
-    for (let key in opinion) {
-      formData.append(key, opinion[key]);
-    }
-    axios
-      .put(
-        `${process.env.REACT_APP_PROXY}/api/issues/update/opinion/${issue._id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("accessToken"),
-          },
-        }
-      )
-      .then((response) => {
-        if (issue && issue.opinions.length > 0) {
-          const userOpinion = issue.opinions.filter(
-            (each) => each.userId === opinion.userId
-          );
-          if (userOpinion.length > 0) {
-            const updatedOpinions = issue.opinions.map((each) => {
-              if (each.userId === opinion.userId) {
-                if (each.opinion !== opinion.opinion)
-                  each.opinion = opinion.opinion;
-              }
-              return each;
-            });
-            store.dispatch({
-              type: "EDIT_ISSUE",
-              payloads: {
-                issue: { ...issue, opinions: updatedOpinions },
-              },
-            });
-          } else {
-            store.dispatch({
-              type: "EDIT_ISSUE",
-              payloads: {
-                issue: {
-                  ...issue,
-                  opinions: [...issue.opinions, opinion],
-                },
-              },
-            });
-          }
-        } else {
-          store.dispatch({
-            type: "EDIT_ISSUE",
-            payloads: {
-              issue: {
-                ...issue,
-                opinions: [...issue.opinions, opinion],
-              },
-            },
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    dispatch(submitOpinion(issue._id, response));
   };
 
   const formatLikeclassName = () => {
