@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Icon from "../components/Icons";
-import AuthContext from "../utilities/authContext";
-import Search from "./partials/Search";
+import { useSelector } from "react-redux";
+import Search from "../pages/partials/Search";
 
 const Header = (props) => {
-  const { isAuth } = useContext(AuthContext);
+  const isAuth = useSelector((state) => state.auth.isAuth);
   const topNavLinks = [
     { name: "About", link: "/about" },
     { name: "Company", link: "/company" },
