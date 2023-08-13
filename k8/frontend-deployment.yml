@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployement
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: frontend
+  template:
+    metadata:
+      labels: 
+        name: frontend
+    spec:
+      containers:
+        - name: frontend
+          # image: mukeshphulwani66/jokes-api
+          image: amit1300/api
+          ports: 
+            - containerPort: 4001
+          # env:
+          #   - name: MONGO_URI
+          #     value: "mongodb://mongodb-cluser-ip-serv/jokesdb" 
+          env:
+            - name: REACT_APP_PROXY
+              value: "http://backend-api-service" 
